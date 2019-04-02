@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.0.10deb1ubuntu0.1
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 01-Out-2018 às 21:05
--- Versão do servidor: 5.5.38-0ubuntu0.14.04.1
--- versão do PHP: 5.5.9-1ubuntu4.5
+-- Data de Criação: 29-Out-2018 às 20:58
+-- Versão do servidor: 5.5.62-0ubuntu0.14.04.1
+-- versão do PHP: 5.5.9-1ubuntu4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,22 +27,31 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `cadastro` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
-  `rgm` varchar(30) NOT NULL,
+  `usuario` varchar(30) NOT NULL,
   `nascimento` date NOT NULL,
   `sexo` enum('M','F','NI') NOT NULL,
   `telefone` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `senha` varchar(200) NOT NULL,
-  PRIMARY KEY (`rgm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `curso` varchar(30) NOT NULL,
+  `semestre` int(2) NOT NULL,
+  `turno` varchar(10) NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuario` (`usuario`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `cadastro`
 --
 
-INSERT INTO `cadastro` (`nome`, `rgm`, `nascimento`, `sexo`, `telefone`, `email`, `senha`) VALUES
-('admin', '20101234', '1900-01-01', 'M', '999999999', 'administrador@altecnologia.com.br', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `cadastro` (`id`, `nome`, `usuario`, `nascimento`, `sexo`, `telefone`, `email`, `senha`, `curso`, `semestre`, `turno`, `descricao`) VALUES
+(1, 'Antony Lucas Rodrigues Almeida', 'lucas.rodrigues', '1994-09-25', 'M', '61983213209', 'antonylucasti@gmail.com', 'b3062a86ce384f3f8afee4aa16221bfad1d680d1', 'ADS - ANÁLISE DE SISTEMAS', 2, 'M', ''),
+(2, 'Willian Taiguara', 'williantaiguara', '1987-10-28', 'M', '61983133640', 'willianwt@gmail.com', '1ffd38d785a5cef62c7d39d4d8fc0211ad854389', 'ADS - ANÁLISE DE SISTEMAS', 2, 'Noturno', ''),
+(4, 'Thiago Rosa Machado', 'ThiagoRM', '1992-01-04', 'M', '61984811579', 'thrsmachado@gmail.com', '413c2b3a265cc52dee8d7d0dc517865fd0ad757b', 'ADS - ANÁLISE DE SISTEMAS', 1, 'Noturno', '');
 
 -- --------------------------------------------------------
 
@@ -127,14 +136,14 @@ INSERT INTO `curso` (`id`, `curso`) VALUES
 (64, 'RADIOLOGIA'),
 (65, 'RELAÇÕES INTERNACIONAIS'),
 (66, 'RELAÇÕES PÚBLICAS'),
-(67, 'SECRETARIADO EXECUTIVO TRILÍNGUE'),
+(67, 'SECRETARIADO EXECUTIVO'),
 (68, 'SISTEMAS DE INFORMAÇÃO'),
 (69, 'TÉCNICO EM ENFERMAGEM'),
 (70, 'TÉCNICO EM INFORMÁTICA'),
 (71, 'TÉCNICO EM LOGÍSTICA'),
 (72, 'TÉCNICO EM MEIO AMBIENTE'),
-(73, 'TÉCNICO EM PROGRAMAÇÃO DE JOGOS DIGITAIS'),
-(74, 'TÉCNICO EM REDES DE COMPUTADORES');
+(73, 'TÉCNICO DE JOGOS DIGITAIS'),
+(74, 'TÉCNICO EM REDES DE PC');
 
 -- --------------------------------------------------------
 
@@ -150,29 +159,66 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   `curso` varchar(30) NOT NULL,
   `materia` varchar(30) NOT NULL,
   `assunto` varchar(400) NOT NULL,
-  `contrapartida` varchar(500) NOT NULL,
   `disponibilidade` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Tabela de pedidos e ofertas de ajuda' AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Tabela de pedidos e ofertas de ajuda' AUTO_INCREMENT=46 ;
 
 --
 -- Extraindo dados da tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `tipo`, `usuario`, `contato`, `curso`, `materia`, `assunto`, `contrapartida`, `disponibilidade`) VALUES
-(1, 'Oferta', 'Will', '61 meu telefone e email', 'ADS', 'HTML', 'Me ajuda a fazer um site?', 'Eu te ajudo com BD', ''),
-(2, 'Pedido', 'Julia', 'email@dajulia.com', 'ADS', 'Algoritimos', 'Preciso entender a logica do if else', 'sou boa em html', ''),
-(5, 'Pedido', 'Will', 'zapzap', 'ADM', 'Sei la', 'preciso de ajuda pra vida', 'nao tenho nada a oferecer...', ''),
-(6, 'Oferta', 'Zequinha', 'telefone da mamae', 'Pedagogia', 'Infantil', 'Preciso de doces', 'e balas', ''),
-(7, 'Pedido', 'Will', 'zapzap', 'ADM', 'Sei la', 'preciso de ajuda pra vida', 'nao tenho nada a oferecer...', ''),
-(8, 'Oferta', 'Zequinha', 'telefone da mamae', 'Pedagogia', 'Infantil', 'Preciso de doces', 'e balas', ''),
-(16, 'Oferta', '', 'power', 'adm', 'max', 'amor', 'amor', 'sempre que quiser'),
-(17, 'Oferta', 'd', 'd', 'ads', 'd', 'd', 'd', 'd'),
-(19, 'Pedido', 'z', 'z', 'ads', 'z', 'z', 'azz', 'z'),
-(20, 'Pedido', 'Jao', '61616162', 'adm', 'MatemÃ¡tica', 'Ajuda', 'Trabalho ', 'Todo dia '),
-(21, 'Oferta', 'ajosdj', 'asjdko', 'adv', 'ansdja', 'asdnmalsjk', '', '121 246'),
-(22, 'Pedido', 'sadajlk', 'as', 'adm', 'asndjka', 'asjdlk', 'jk', 'azsd');
+INSERT INTO `pedidos` (`id`, `tipo`, `usuario`, `contato`, `curso`, `materia`, `assunto`, `disponibilidade`) VALUES
+(1, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'TOPICOS ESPECIAIS DA INTERNET ', 'Não obstante, a complexidade dos estudos efetuados exige a precisão e a definição do retorno esperado a longo prazo.\n', 'Noturno'),
+(2, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'POO', 'Gostaria de enfatizar que o comprometimento entre as equipes desafia a capacidade de equalização do levantamento das variáveis envolvidas.\n', 'Noturno'),
+(3, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'ARQUITETURA E URBANISMO', 'Portugues', 'Por conseguinte, a expansão dos mercados mundiais pode nos levar a considerar a reestruturação dos relacionamentos verticais entre as hierarquias.\n', '10 as 12'),
+(5, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'TOPICOS ESPECIAIS DA INTERNET ', 'Todavia, o acompanhamento das preferências de consumo causa impacto indireto na reavaliação dos níveis de motivação departamental.\n', 'Noturno'),
+(6, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'TOPICOS ESPECIAIS DA INTERNET ', 'A certificação de metodologias que nos auxiliam a lidar com o julgamento imparcial das eventualidades aponta para a melhoria das diversas correntes de pensamento.\n', 'Noturno'),
+(9, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'CIÊNCIA POLÍTICA', 'Política', 'A certificação de metodologias que nos auxiliam a lidar com o julgamento imparcial das eventualidades aponta para a melhoria das diversas correntes de pensamento.\n', 'manhã'),
+(15, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'TOPICOS ESPECIAIS DA INTERNET ', 'A nível organizacional, a valorização de fatores subjetivos representa uma abertura para a melhoria dos paradigmas corporativos.\n', 'Noturno'),
+(16, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'CIÊNCIAS BIOLÓGICAS ', 'TOPICOS ESPECIAIS DA INTERNET ', 'O que temos que ter sempre em mente é que a competitividade nas transações comerciais estende o alcance e a importância das formas de ação.\n', 'Noturno'),
+(19, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'CIÊNCIA DA COMPUTAÇÃO', 'TOPICOS ESPECIAIS DA INTERNET ', 'Assim mesmo, o início da atividade geral de formação de atitudes nos obriga à análise da gestão inovadora da qual fazemos parte.\n', 'Noturno'),
+(21, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'ADMINISTRAÇÃO', 'TOPICOS ESPECIAIS DA INTERNET ', 'Assim mesmo, o início da atividade geral de formação de atitudes nos obriga à análise da gestão inovadora da qual fazemos parte.\n', 'Noturno'),
+(23, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'CIÊNCIA POLÍTICA', 'TOPICOS ESPECIAIS DA INTERNET ', 'Assim mesmo, o início da atividade geral de formação de atitudes nos obriga à análise da gestão inovadora da qual fazemos parte.\n', 'Noturno'),
+(29, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'DESIGN DE INTERIORES ', 'Artes', 'Ofereço ajuda com historia da arte.', '12 as 14'),
+(32, 'Pedido', 'lucas.rodrigues', '61983213209', 'ADS - ANÁLISE DE SISTEMAS', 'Programação Orientada a Objeto', 'Preciso fazer alguns exercícios que estou com dificuldades.', 'Qualquer horário'),
+(33, 'Oferta', 'lucas.rodrigues', '61983213209', 'BIOMEDICINA', 'Microbiologia', 'Ofereço ajuda na cadeira de "Microbiologia".', 'Vespertino'),
+(34, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'POO', 'Assim mesmo, o início da atividade geral de formação de atitudes nos obriga à análise da gestão inovadora da qual fazemos parte.', 'manha'),
+(35, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'ADS - ANÁLISE DE SISTEMAS', 'POO', 'Assim mesmo, o início da atividade geral de formação de atitudes nos obriga à análise da gestão inovadora da qual fazemos parte.', 'manha'),
+(36, 'Pedido', 'williantaiguara', 'willianwt@gmail.com', 'CIÊNCIA POLÍTICA', 'TOPICOS ESPECIAIS DA INTERNET ', 'Assim mesmo, o início da atividade geral de formação de atitudes nos obriga à análise da gestão inovadora da qual fazemos parte.\r\n', 'Noturno'),
+(37, 'Pedido', 'lucas.rodrigues', '61983213209', 'ADS - ANÁLISE DE SISTEMAS', 'Programação Orientada a Objeto', 'Preciso fazer alguns exercícios que estou com dificuldades.', 'Qualquer horário'),
+(38, 'Oferta', 'williantaiguara', 'willianwt@gmail.com', 'DESIGN DE INTERIORES ', 'Artes', 'Ofereço ajuda com historia da arte.', '12 as 14'),
+(39, 'Pedido', 'lucas.rodrigues', '61983213209', 'ADS - ANÁLISE DE SISTEMAS', 'Programação Orientada a Objeto', 'Preciso fazer alguns exercícios que estou com dificuldades.', 'Qualquer horário'),
+(40, 'Oferta', 'ThiagoRM', '61984811579', 'ADMINISTRAÇÃO', 'Matemática Financeira ', 'Matemática financeira', 'matutino e vespertin'),
+(41, 'Pedido', 'ThiagoRM', '61984811579', 'DIREITO', 'Direito administrativo ', 'Licitações ', 'Qualquer horario '),
+(42, 'Oferta', 'lucas.rodrigues', '61983213209', 'TÉCNICO EM MEIO AMBIENTE', 'Microbiologia', 'Por conseguinte, a necessidade de renovação processual não pode mais se dissociar das diretrizes de desenvolvimento para o futuro.', 'Qualquer horário'),
+(43, 'Pedido', 'lucas.rodrigues', '61983213209', 'CIÊNCIAS ECONÔMICAS', 'Linguagem R', 'Gostaria de enfatizar que a percepção das dificuldades causa impacto indireto na reavaliação do fluxo de informações.', 'Noturno'),
+(44, 'Oferta', 'lucas.rodrigues', '6133213030', 'ENG.CIVIL', 'Geotecnia', 'Gostaria de enfatizar que o novo modelo estrutural aqui preconizado prepara-nos para enfrentar situações atípicas decorrentes do orçamento setorial.', 'Qualquer horário'),
+(45, 'Pedido', 'lucas.rodrigues', '6133213030', 'GESTÃO HOSPITALAR', 'Anatomia', 'A certificação de metodologias que nos auxiliam a lidar com a expansão dos mercados mundiais estimula a padronização dos procedimentos normalmente adotados.', 'matutino');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `recovery_keys`
+--
+
+CREATE TABLE IF NOT EXISTS `recovery_keys` (
+  `rid` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(50) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `valid` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`rid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+--
+-- Extraindo dados da tabela `recovery_keys`
+--
+
+INSERT INTO `recovery_keys` (`rid`, `usuario`, `token`, `valid`) VALUES
+(8, 'williantaiguara', 'cd229ef79b43b6a11abff398c32af100', 1),
+(9, 'lucas.rodrigues', '68c118aed8a921d6fcb8f525e555c60d', 1),
+(10, 'williantaiguara', 'cb4c122fcee2865e401bb7b15dd09e23', 1),
+(11, 'lucas.rodrigues', 'f5c63f53c4f1bfc05aab0e44a5970737', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

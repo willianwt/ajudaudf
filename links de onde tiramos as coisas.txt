@@ -1,0 +1,9 @@
+https://www.webslesson.info/2016/08/make-pagination-using-ajax-with-jquery-php-and-mysql.html
+
+//https://www.webslesson.info/2016/12/php-mysql-ajax-crud-using-oops-pagination.html <-- paginação, busca, delete
+
+http://blog.ultimatephp.com.br/sistema-de-login-php/ sistema com PDO
+
+https://www.canalti.com.br/programacao/web/php/como-criar-sistema-de-login-com-php-e-mysql/ -- sistema de login com mysqli (mais facil)
+
+https://codepen.io/rdallaire/pen/apoyx -- seta para voltar ao topo (SCROLL UP)
