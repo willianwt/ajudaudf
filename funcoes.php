@@ -68,7 +68,7 @@ require_once("phpmailer/class.phpmailer.php");
 	$mail->Host = 'smtp-relay.sendinblue.com';
 	$mail->SMTPAuth = true;
 	$mail->Username = 'suporte.ajudaudf@gmail.com';
-	$mail->Password = 'vKFOUTPAjxrBHd1a';
+	$mail->Password = '-';
 	$mail->Port = 587;
 	
 	$mail->From = 'suporte.ajudaudf@gmail.com';
